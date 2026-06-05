@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luis Montenegro — Art Director & Digital Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500;1,600;1,700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#000;color:#fff;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;overflow-x:hidden;cursor:none}
+
+
+/* ── CURSOR ── */
+#cur{position:fixed;width:8px;height:8px;background:#fff;border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:opacity .2s}
+#cur-ring{position:fixed;width:36px;height:36px;border:1px solid rgba(255,255,255,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s,border-color .3s}
+body.ch #cur-ring{width:64px;height:64px;border-color:rgba(255,255,255,.85)}
+body.ch #cur{opacity:.25}
+
+/* ── GRAIN ── */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:8000;
+background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+opacity:.04}
+
+/* ── LIQUID GLASS ── */
+.lg{background:rgba(255,255,255,.01);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);box-shadow:inset 0 1px 1px rgba(255,255,255,.12);position:relative;overflow:hidden}
+.lg::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;
+background:linear-gradient(180deg,rgba(255,255,255,.45) 0%,rgba(255,255,255,.12) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.12) 80%,rgba(255,255,255,.45) 100%);
+-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+.lgs{background:rgba(255,255,255,.015);backdrop-filter:blur(40px);-webkit-backdrop-filter:blur(40px);box-shadow:4px 4px 8px rgba(0,0,0,.08),inset 0 1px 1px rgba(255,255,255,.15);position:relative;overflow:hidden}
+.lgs::before{content:'';position:absolute;inset:0;border-radius:inherit;padding:1.4px;
+background:linear-gradient(180deg,rgba(255,255,255,.5) 0%,rgba(255,255,255,.2) 20%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 60%,rgba(255,255,255,.2) 80%,rgba(255,255,255,.5) 100%);
+-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none}
+
+/* ── NAV ── */
+nav{position:fixed;top:16px;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:center;padding:0 48px;transition:all .4s}
+.nav-logo{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo span{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:22px;color:#fff}
+.nav-center{border-radius:9999px;padding:6px;display:flex;align-items:center;gap:4px}
+.nav-center a{font-size:13px;font-weight:500;color:rgba(255,255,255,.8);text-decoration:none;padding:8px 14px;border-radius:9999px;transition:color .2s;cursor:none}
+.nav-center a:hover{color:#fff}
+.nav-btn{background:#fff;color:#000 !important;border-radius:9999px;padding:8px 18px;font-size:13px;font-weight:600;text-decoration:none;display:flex;align-items:center;gap:6px;margin-left:4px;transition:opacity .2s;cursor:none}
+.nav-btn:hover{opacity:.88}
+.nav-btn svg{color:#000 !important;stroke:#000 !important}
+nav.scrolled .nav-center{background:rgba(0,0,0,.4);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+
+/* ── HERO ── */
+#hero{position:relative;height:100vh;display:flex;flex-direction:column;overflow:hidden;background:#000}
+.hero-video{position:absolute;top:0;left:50%;transform:translateX(-50%);width:120%;height:120%;object-fit:cover;object-position:top;z-index:0}
+.hero-inner{position:relative;z-index:1;display:flex;flex-direction:column;flex:1}
+.hero-content{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:100px 24px 0;text-align:center}
+.hero-badge{border-radius:9999px;display:flex;align-items:center;gap:8px;margin-bottom:32px;padding:6px 6px 6px 6px}
+.hero-badge .chip{background:#fff;color:#000;border-radius:9999px;padding:4px 14px;font-size:11px;font-weight:600}
+.hero-badge span{font-size:13px;color:rgba(255,255,255,.88);padding-right:14px}
+.hero-title{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(40px,6.5vw,88px);line-height:.95;letter-spacing:-2px;color:#fff;max-width:960px;width:100%;opacity:0;transform:translateY(30px) scale(.98);animation:fadeUp .9s .5s forwards;display:flex;flex-direction:column;align-items:center;gap:0}
+.ht-line{display:block;white-space:nowrap;font-size:clamp(38px,5.8vw,82px)}
+
+.hero-ctas{display:flex;align-items:center;gap:28px;margin-top:32px;opacity:0;animation:fadeUp .8s 1s forwards}
+.cta-primary{border-radius:9999px;padding:11px 24px;font-size:13px;font-weight:500;color:#fff;text-decoration:none;display:flex;align-items:center;gap:8px;cursor:none}
+.cta-secondary{font-size:13px;color:rgba(255,255,255,.6);text-decoration:none;display:flex;align-items:center;gap:8px;transition:color .25s;font-weight:300;cursor:none}
+.cta-secondary:hover{color:#fff}
+.hero-stats{display:flex;gap:16px;margin-top:40px;margin-bottom:8px;opacity:0;animation:fadeUp .8s 1.2s forwards}
+.stat-card{border-radius:20px;padding:20px 24px;width:185px}
+.stat-num{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:44px;letter-spacing:-1px;line-height:1;color:#fff}
+.stat-label{font-size:11px;color:rgba(255,255,255,.45);margin-top:8px;font-weight:300}
+.hero-brands{display:flex;flex-direction:column;align-items:center;gap:20px;padding:60px 0 40px;opacity:0;animation:fadeUp .8s 1.4s forwards;border-top:1px solid rgba(255,255,255,.07);margin-top:16px}
+.brands-label{border-radius:9999px;padding:4px 16px;font-size:11px;color:rgba(255,255,255,.55)}
+.brands-row{display:flex;align-items:center;gap:40px;flex-wrap:wrap;justify-content:center}
+.brands-row span{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:24px;color:rgba(255,255,255,.45);letter-spacing:-1px;transition:color .25s;cursor:default}
+.brands-row span:hover{color:rgba(255,255,255,.9)}
+
+/* ── WORK ── */
+#work{position:relative;min-height:100vh;background:#000}
+.work-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.work-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);z-index:0}
+.work-inner{position:relative;z-index:1;padding:120px 64px 80px}
+.work-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:20px}
+.work-title{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(48px,7vw,96px);line-height:.9;letter-spacing:-3px;color:#fff;margin-bottom:64px}
+.proj-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.proj-item{position:relative;overflow:hidden;cursor:none}
+.proj-item.full{grid-column:1/-1;aspect-ratio:16/7}
+.proj-item.half{aspect-ratio:4/3}
+.proj-bg{position:absolute;inset:0;background-size:cover;background-position:center;transform:scale(1.05);filter:brightness(.48);transition:transform .7s cubic-bezier(.23,1,.32,1),filter .7s}
+.proj-item:hover .proj-bg{transform:scale(1.12);filter:brightness(.65)}
+.proj-grad{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.92) 0%,transparent 55%);transition:background .5s}
+.proj-item:hover .proj-grad{background:linear-gradient(to top,rgba(0,0,0,.97) 0%,rgba(0,0,0,.15) 60%)}
+.proj-num{position:absolute;top:24px;right:28px;font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.28)}
+.proj-info{position:absolute;bottom:0;left:0;right:0;padding:32px 36px}
+.proj-tag{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px;font-weight:400;opacity:0;transform:translateY(12px);transition:opacity .35s,transform .35s}
+.proj-item:hover .proj-tag{opacity:1;transform:translateY(0)}
+.proj-name{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(28px,4vw,56px);line-height:.9;letter-spacing:-2px;color:#fff}
+.proj-brand{font-size:12px;color:rgba(255,255,255,.38);margin-top:8px;opacity:0;transform:translateY(10px);transition:opacity .35s .05s,transform .35s .05s}
+.proj-item:hover .proj-brand{opacity:1;transform:translateY(0)}
+.proj-arrow{position:absolute;bottom:32px;right:32px;width:44px;height:44px;border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;opacity:0;transition:opacity .3s,border-color .3s}
+.proj-item:hover .proj-arrow{opacity:1;border-color:rgba(255,255,255,.5)}
+
+/* ── CAPABILITIES ── */
+#capabilities{background:#000;border-top:1px solid rgba(255,255,255,.06);padding:112px 64px 96px}
+.caps-eyebrow{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-bottom:20px}
+.caps-title{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(48px,7vw,96px);line-height:.9;letter-spacing:-3px;color:#fff;margin-bottom:64px}
+.caps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.cap-card{border-radius:20px;padding:24px;min-height:360px;display:flex;flex-direction:column}
+.cap-top{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.cap-icon-wrap{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cap-tags{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:6px;max-width:70%}
+.cap-tag{border-radius:9999px;padding:4px 12px;font-size:11px;color:rgba(255,255,255,.82);white-space:nowrap}
+.cap-body{margin-top:24px}
+.cap-title-text{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(26px,2.5vw,38px);letter-spacing:-1px;line-height:1;color:#fff}
+.cap-desc{font-size:13px;color:rgba(255,255,255,.6);margin-top:12px;line-height:1.68;font-weight:300}
+
+/* ── ABOUT ── */
+#about{background:#000;border-top:1px solid rgba(255,255,255,.06);padding:112px 64px}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.about-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:40px}
+.about-title{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(40px,5vw,68px);line-height:.88;letter-spacing:-2px;color:#fff;margin-bottom:32px}
+.about-title .muted{color:#fff}
+.about-text{font-size:14px;color:rgba(255,255,255,.58);line-height:1.85;font-weight:300;max-width:420px;margin-bottom:16px}
+.skills-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;margin-top:48px}
+.skill-item{display:flex;align-items:center;gap:10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.28);padding:12px 0;border-bottom:1px solid rgba(255,255,255,.05)}
+.skill-dot{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.22);flex-shrink:0}
+.stats-block{display:grid;grid-template-columns:1fr 1fr;gap:3px}
+.stat-block-item{padding:36px 28px}
+.stat-block-num{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:54px;letter-spacing:-1px;line-height:1;color:#fff;margin-bottom:10px}
+.stat-block-label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.28)}
+
+/* ── CONTACT ── */
+#contact{background:#000;border-top:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:160px 32px;min-height:100vh}
+.contact-eyebrow{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:32px}
+.contact-title{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(56px,9vw,120px);line-height:.88;letter-spacing:-4px;margin-bottom:24px}
+
+.contact-sub{font-size:14px;color:rgba(255,255,255,.45);font-weight:300;max-width:420px;line-height:1.8;margin-bottom:56px}
+.contact-email{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;font-size:clamp(18px,2.5vw,28px);color:#fff;text-decoration:none;padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.2);transition:border-color .25s;cursor:none}
+.contact-email:hover{border-color:rgba(255,255,255,.65)}
+.contact-links{display:flex;align-items:center;gap:40px;margin-top:56px}
+.contact-link{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s;cursor:none}
+.contact-link:hover{color:#fff}
+
+/* ── FOOTER ── */
+footer{background:#000;border-top:1px solid rgba(255,255,255,.05);padding:28px 64px;display:flex;justify-content:space-between;align-items:center}
+.footer-copy{font-size:11px;color:rgba(255,255,255,.16);letter-spacing:.08em}
+.footer-loc{font-size:11px;color:rgba(255,255,255,.09)}
+
+/* ── MODAL ── */
+#modal-wrap{position:fixed;inset:0;z-index:700;display:flex;pointer-events:none;opacity:0;transition:opacity .35s}
+#modal-wrap.open{opacity:1;pointer-events:all;background:rgba(0,0,0,.75);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+#modal{position:absolute;right:0;top:0;bottom:0;width:min(560px,100%);background:#080808;border-left:1px solid rgba(255,255,255,.06);transform:translateX(100%);transition:transform .55s cubic-bezier(.23,1,.32,1);overflow-y:auto;display:flex;flex-direction:column}
+#modal-wrap.open #modal{transform:translateX(0)}
+#modal::-webkit-scrollbar{display:none}
+#modal{scrollbar-width:none}
+.modal-close{position:absolute;top:24px;right:24px;width:40px;height:40px;border-radius:50%;border:none;background:rgba(255,255,255,.06);color:rgba(255,255,255,.5);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:none;z-index:2;transition:background .2s,color .2s}
+.modal-close:hover{background:rgba(255,255,255,.12);color:#fff}
+.modal-hero-img{width:100%;aspect-ratio:16/9;flex-shrink:0}
+.modal-body{padding:40px;flex:1}
+.modal-tag{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:12px}
+.modal-title{font-family:'Cormorant Garamond',Garamond,Georgia,serif;font-style:italic;color:#fff;font-size:48px;line-height:.9;letter-spacing:-1px;margin-bottom:8px}
+.modal-brand{font-size:12px;color:rgba(255,255,255,.3);margin-bottom:32px}
+.modal-divider{width:40px;height:1px;background:rgba(255,255,255,.1);margin-bottom:32px}
+.modal-section-title{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:10px}
+.modal-text{font-size:13px;color:rgba(255,255,255,.65);line-height:1.78;font-weight:300;margin-bottom:28px}
+.modal-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.modal-pill{border-radius:9999px;padding:6px 14px;font-size:11px;color:rgba(255,255,255,.5);white-space:nowrap}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .8s cubic-bezier(.23,1,.32,1),transform .8s cubic-bezier(.23,1,.32,1)}
+.reveal.on{opacity:1;transform:none}
+.reveal-d1{transition-delay:.1s}
+.reveal-d2{transition-delay:.2s}
+.reveal-d3{transition-delay:.3s}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp{to{opacity:1;transform:none}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  nav{padding:0 16px;justify-content:center}
+  .nav-center{gap:0;padding:4px}
+  .nav-center a{padding:6px 10px;font-size:12px}
+  .nav-btn{padding:6px 14px;font-size:12px}
+  #work .work-inner{padding:100px 24px 60px}
+  #capabilities{padding:80px 24px}
+  #about{padding:80px 24px}
+  footer{padding:24px;flex-direction:column;gap:8px;text-align:center}
+  .proj-grid{grid-template-columns:1fr}
+  .proj-item.full,.proj-item.half{aspect-ratio:4/3;grid-column:auto}
+  .caps-grid{grid-template-columns:1fr}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .stats-block{grid-template-columns:1fr 1fr}
+  .hero-title{letter-spacing:-2px}
+  .hero-stats{flex-direction:column;align-items:center}
+  .stat-card{width:100%;max-width:280px}
+  .modal-title{font-size:36px}
+  .contact-links{gap:24px}
+  .about-grid > div:last-child{width:100%}
+}
+@media(max-width:480px){
+  .ht-line{white-space:normal;font-size:clamp(32px,9vw,52px) !important}
+  .hero-title{font-size:clamp(32px,9vw,52px) !important}
+  .nav-center a:not(.nav-btn){display:none}
+  .nav-btn{margin-left:0}
+  .hero-badge span:last-child{font-size:11px}
+  .hero-ctas{flex-direction:column;align-items:center;gap:16px}
+  .caps-grid{gap:12px}
+  .cap-card{min-height:auto;padding:20px}
+}
+
+/* ── DYNAMIC TITLE WEIGHTS ── */
+.bold-word{font-weight:700;font-style:italic;font-family:'Cormorant Garamond',Garamond,Georgia,serif}
+.hero-title em{font-style:italic}
+.hero-sub{font-size:13px;color:rgba(255,255,255,.55);max-width:560px;font-weight:400;line-height:1.75;margin-top:28px;letter-spacing:.01em;opacity:0;animation:fadeUp .8s .8s forwards}
+</style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-center lg">
+    <a href="#hero">Home</a>
+    <a href="#work">Work</a>
+    <a href="#capabilities">Capabilities</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="nav-btn" style="color:#000">
+      Let's Talk
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <video class="hero-video" autoplay muted playsinline preload="auto" id="hero-video">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_080021_d598092b-c4c2-4e53-8e46-94cf9064cd50.mp4" type="video/mp4">
+  </video>
+  <div class="hero-inner">
+    <div class="hero-content">
+      <!-- Badge -->
+      <div class="hero-badge lg" style="opacity:0;animation:fadeUp .7s .3s forwards">
+        <span class="chip">Spain</span>
+        <span>Art Director & Digital Creative · Available</span>
+      </div>
+      <!-- Title -->
+      <h1 class="hero-title"><span class="ht-line">I don't design to <em class="bold-word">impress.</em></span><span class="ht-line">I design to <em class="bold-word">connect.</em></span></h1>
+      <!-- Sub -->
+      <p class="hero-sub">Intuition with intention — I believe in creativity guided by thoughtful judgment, where art, psychology, and function come together to give purpose to every decision.</p>
+      <!-- CTAs -->
+      <div class="hero-ctas">
+        <a href="#work" class="cta-primary lgs">
+          View Work
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </a>
+        <a href="#contact" class="cta-secondary">
+          Let's Talk
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><polygon points="6 4 20 12 6 20 6 4"/></svg>
+        </a>
+      </div>
+      <!-- Stats -->
+      <div class="hero-stats">
+        <div class="stat-card lg">
+          <div class="stat-num">5+</div>
+          <div class="stat-label">Years of experience</div>
+        </div>
+        <div class="stat-card lg">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">Brands worked with</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <video class="work-video" autoplay muted playsinline preload="auto" id="work-video">
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260418_094631_d30ab262-45ee-4b7d-99f3-5d5848c8ef13.mp4" type="video/mp4">
+  </video>
+  <div class="work-overlay"></div>
+  <div class="work-inner">
+    <p class="work-eyebrow reveal">// Selected Work</p>
+    <h2 class="work-title reveal reveal-d1"><em class="bold-word">Work</em> that<br><em class="bold-word">matters</em></h2>
+    <div class="proj-grid">
+
+      <!-- 01 Adidas -->
+      <div class="proj-item full reveal" data-idx="0">
+        <div class="proj-bg" style="background:linear-gradient(135deg,#111 0%,#222 50%,#111 100%)"></div>
+        <div class="proj-grad"></div>
+        <span class="proj-num">01</span>
+        <div class="proj-info">
+          <p class="proj-tag">Brand Campaign · AI Creative</p>
+          <h3 class="proj-name">Adidas Symbiosis</h3>
+          <p class="proj-brand">Adidas — Art Direction + Generative AI</p>
+        </div>
+        <div class="proj-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </div>
+      </div>
+
+      <!-- 02 UFC -->
+      <div class="proj-item half reveal" data-idx="1">
+        <div class="proj-bg" style="background:linear-gradient(135deg,#0a0a0a 0%,#1a0808 50%,#0a0a0a 100%)"></div>
+        <div class="proj-grad"></div>
+        <span class="proj-num">02</span>
+        <div class="proj-info">
+          <p class="proj-tag">Visual Identity · Branding</p>
+          <h3 class="proj-name">UFC × BetBoom</h3>
+          <p class="proj-brand">UFC — Identidad Visual</p>
+        </div>
+        <div class="proj-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </div>
+      </div>
+
+      <!-- 03 Spotify -->
+      <div class="proj-item half reveal reveal-d1" data-idx="2">
+        <div class="proj-bg" style="background:linear-gradient(135deg,#060d08 0%,#0d1a0f 50%,#060d08 100%)"></div>
+        <div class="proj-grad"></div>
+        <span class="proj-num">03</span>
+        <div class="proj-info">
+          <p class="proj-tag">360° Digital Campaign</p>
+          <h3 class="proj-name">Songs Are Memories</h3>
+          <p class="proj-brand">Spotify — Emotional Brand Campaign</p>
+        </div>
+        <div class="proj-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </div>
+      </div>
+
+      <!-- 04 Stake -->
+      <div class="proj-item half reveal" data-idx="3">
+        <div class="proj-bg" style="background:linear-gradient(135deg,#0d0a00 0%,#1a1200 50%,#0d0a00 100%)"></div>
+        <div class="proj-grad"></div>
+        <span class="proj-num">04</span>
+        <div class="proj-info">
+          <p class="proj-tag">Social Media Art Direction</p>
+          <h3 class="proj-name">La Noche Dorada</h3>
+          <p class="proj-brand">Stake — Social Media Campaign</p>
+        </div>
+        <div class="proj-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </div>
+      </div>
+
+      <!-- 05 Toyota -->
+      <div class="proj-item half reveal reveal-d1" data-idx="4">
+        <div class="proj-bg" style="background:linear-gradient(135deg,#08080d 0%,#10101c 50%,#08080d 100%)"></div>
+        <div class="proj-grad"></div>
+        <span class="proj-num">05</span>
+        <div class="proj-info">
+          <p class="proj-tag">Video · Motion · Art Direction</p>
+          <h3 class="proj-name">Toyotahon</h3>
+          <p class="proj-brand">Toyota — Audiovisual Campaign</p>
+        </div>
+        <div class="proj-arrow">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section id="capabilities">
+  <p class="caps-eyebrow reveal">// Capabilities</p>
+  <h2 class="caps-title reveal reveal-d1"><em class="bold-word">Creativity</em><br>evolved</h2>
+  <div class="caps-grid">
+
+    <div class="cap-card lg reveal">
+      <div class="cap-top">
+        <div class="cap-icon-wrap lg">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zm1-11h-2v6h2zm0 8h-2v2h2z"/></svg>
+        </div>
+        <div class="cap-tags">
+          <span class="cap-tag lg">Creative Concept</span>
+          <span class="cap-tag lg">Storytelling</span>
+          <span class="cap-tag lg">Branding</span>
+          <span class="cap-tag lg">Big Idea</span>
+        </div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="cap-body">
+        <h3 class="cap-title-text"><em class="bold-word">Art</em> Direction</h3>
+        <p class="cap-desc">From brief to final piece with conviction. I don't execute ideas — I build them from scratch with a clear vision of the impact they need to create.</p>
+      </div>
+    </div>
+
+    <div class="cap-card lg reveal reveal-d1">
+      <div class="cap-top">
+        <div class="cap-icon-wrap lg">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
+        </div>
+        <div class="cap-tags">
+          <span class="cap-tag lg">Midjourney</span>
+          <span class="cap-tag lg">Kling</span>
+          <span class="cap-tag lg">ChatGPT</span>
+          <span class="cap-tag lg">AI Workflow</span>
+        </div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="cap-body">
+        <h3 class="cap-title-text">Generative <em class="bold-word">AI</em></h3>
+        <p class="cap-desc">I integrate AI tools as an extension of the creative process. The result always has art direction thinking — AI is the medium, not the artist.</p>
+      </div>
+    </div>
+
+    <div class="cap-card lg reveal reveal-d2">
+      <div class="cap-top">
+        <div class="cap-icon-wrap lg">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="white"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+        </div>
+        <div class="cap-tags">
+          <span class="cap-tag lg">360 Campaigns</span>
+          <span class="cap-tag lg">Social Media</span>
+          <span class="cap-tag lg">Copy</span>
+          <span class="cap-tag lg">Motion</span>
+        </div>
+      </div>
+      <div style="flex:1"></div>
+      <div class="cap-body">
+        <h3 class="cap-title-text">Contenido Digital</h3>
+        <p class="cap-desc">Strategy and visual execution for digital platforms. From the campaign to the post — with brand consistency and attention as the goal.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div>
+      <p class="about-eyebrow reveal">— About me</p>
+      <h2 class="about-title reveal reveal-d1">
+        <em class="bold-word">Creative</em> who goes<br><em class="bold-word">beyond</em> the brief
+      </h2>
+      <p class="about-text reveal reveal-d2">Art Director and Digital Creative with 5 years of experience in digital campaigns, branding, social media and AI-powered content.</p>
+      <p class="about-text reveal reveal-d2">Former Ogilvy Peru — creative direction for automotive and mass consumer brands. Former Basher Agency — content for global streaming events. Based in Madrid, available for freelance projects and agency positions.</p>
+      <div class="skills-grid reveal reveal-d3">
+        <div class="skill-item"><div class="skill-dot"></div>Art Direction</div>
+        <div class="skill-item"><div class="skill-dot"></div>Branding</div>
+        <div class="skill-item"><div class="skill-dot"></div>Digital Campaigns</div>
+        <div class="skill-item"><div class="skill-dot"></div>Generative AI</div>
+        <div class="skill-item"><div class="skill-dot"></div>Visual Storytelling</div>
+        <div class="skill-item"><div class="skill-dot"></div>Social Media</div>
+        <div class="skill-item"><div class="skill-dot"></div>Motion / Video</div>
+        <div class="skill-item"><div class="skill-dot"></div>Creative Strategy</div>
+      </div>
+    </div>
+    <div class="stats-block reveal reveal-d2">
+      <div class="stat-block-item lg">
+        <div class="stat-block-num">5+</div>
+        <div class="stat-block-label">Years of experience</div>
+      </div>
+      <div class="stat-block-item lg">
+        <div class="stat-block-num">20+</div>
+        <div class="stat-block-label">Brands worked with</div>
+      </div>
+      <div class="stat-block-item lg">
+        <div class="stat-block-num">2</div>
+        <div class="stat-block-label">Top agencies</div>
+      </div>
+      <div class="stat-block-item lg">
+        <div class="stat-block-num">360°</div>
+        <div class="stat-block-label">Creative vision</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-eyebrow reveal">Got a project?</p>
+  <h2 class="contact-title reveal reveal-d1">
+    <em class="bold-word">Let's</em> talk about <em class="bold-word">it.</em>
+  </h2>
+  <p class="contact-sub reveal reveal-d2">Open to freelance projects and creative agency positions in Madrid. If you're looking for someone who thinks differently — you're in the right place.</p>
+  <a href="mailto:albertomy13@gmail.com" class="contact-email reveal reveal-d3">albertomy13@gmail.com</a>
+  <div class="contact-links reveal">
+    <a href="https://linkedin.com" target="_blank" class="contact-link">LinkedIn</a>
+    <a href="https://behance.net" target="_blank" class="contact-link">Behance</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy">© 2026 Luis Montenegro — All rights reserved</p>
+  <p class="footer-loc">Madrid, Spain</p>
+</footer>
+
+<!-- MODAL -->
+<div id="modal-wrap">
+  <div id="modal">
+    <button class="modal-close" id="modal-close">✕</button>
+    <div class="modal-hero-img" id="modal-hero"></div>
+    <div class="modal-body">
+      <p class="modal-tag" id="m-tag"></p>
+      <h3 class="modal-title" id="m-title"></h3>
+      <p class="modal-brand" id="m-brand"></p>
+      <div class="modal-divider"></div>
+      <p class="modal-section-title">The project</p>
+      <p class="modal-text" id="m-desc"></p>
+      <p class="modal-section-title">The challenge</p>
+      <p class="modal-text" id="m-challenge"></p>
+      <p class="modal-section-title">The approach</p>
+      <p class="modal-text" id="m-approach"></p>
+      <p class="modal-section-title">Disciplines</p>
+      <div class="modal-pills" id="m-pills"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── DATA ── */
+const PROJECTS = [
+  {
+    tag:"Brand Campaign · AI Creative",title:"Adidas Symbiosis",brand:"Adidas",
+    grad:"linear-gradient(135deg,#111,#222,#111)",
+    desc:"A campaign built on the tension between the human and the artificial. Generative AI applied to art direction to create visuals impossible to produce conventionally.",
+    challenge:"Connecting with a new generation of consumers without losing Adidas' performance DNA. The challenge: create something that felt inevitable, not manufactured.",
+    approach:"A fusion of athletics and nature under the concept of evolutionary symbiosis. Every AI-generated image was art-directed frame by frame — technology was the brush, not the artist.",
+    pills:["Art Direction","Generative AI","Midjourney","Creative Concept","Digital Campaign"]
+  },
+  {
+    tag:"Visual Identity · Branding",title:"UFC × BetBoom",brand:"UFC",
+    grad:"linear-gradient(135deg,#0a0a0a,#1a0808,#0a0a0a)",
+    desc:"Co-branding between combat sports and digital entertainment. A visual system coherent across every touchpoint.",
+    challenge:"Creating a co-branding identity between two very different universes that worked coherently from social media to arena signage.",
+    approach:"A visual system built on tension and balance. Palette and typography respect both brands while generating a unique hybrid language, recognizable and scalable.",
+    pills:["Branding","Visual Identity","Co-Branding","Graphic Design","Art Direction"]
+  },
+  {
+    tag:"360° Digital Campaign",title:"Songs Are Memories",brand:"Spotify",
+    grad:"linear-gradient(135deg,#060d08,#0d1a0f,#060d08)",
+    desc:"An emotional brand campaign that transcends product functionality. Playlists aren't just listening queues — they're archives of life.",
+    challenge:"Moving Spotify from functional territory to deep emotional territory. People shouldn't think about features — they should feel what they feel when they listen.",
+    approach:"Each visual piece connects a song to a specific human moment. A collective narrative about how music anchors memories. The project that represents me best.",
+    pills:["360 Campaign","Storytelling","Editorial Design","Social Media","Creative Concept","Art Direction"]
+  },
+  {
+    tag:"Social Media Art Direction",title:"La Noche Dorada",brand:"Stake",
+    grad:"linear-gradient(135deg,#0d0a00,#1a1200,#0d0a00)",
+    desc:"A social media activation with its own visual identity for Spanish-speaking audiences. Premium without losing street credibility.",
+    challenge:"Generating real engagement in Latin audiences without falling into the clichés of the digital entertainment sector.",
+    approach:"An aesthetic between nocturnal luxury and Latin culture. Dramatic compositions, golden texture and copy that speaks the audience's language.",
+    pills:["Social Media","Art Direction","Creative Copy","Visual Design","Brand Activation"]
+  },
+  {
+    tag:"Video · Motion · Art Direction",title:"Toyotahon",brand:"Toyota",
+    grad:"linear-gradient(135deg,#08080d,#10101c,#08080d)",
+    desc:"Art direction for an audiovisual campaign. From brief to screen with creative judgment in every frame.",
+    challenge:"Translating Toyota's values — reliability, innovation, presence — into cinematic visual language for the Peruvian market.",
+    approach:"Clean compositions, deliberate movement, a palette that conveys solidity without coldness. Judgment in every framing and lighting decision.",
+    pills:["Art Direction","Video","Motion","Creative Production","Audiovisual Campaign"]
+  }
+];
+
+
+/* ── CURSOR ── */
+const cur=document.getElementById('cur'),ring=document.getElementById('cur-ring');
+let cx=0,cy=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;cur.style.left=cx+'px';cur.style.top=cy+'px';});
+(function loop(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+document.querySelectorAll('a,button,.proj-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('ch'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('ch'));
+});
+
+/* ── NAV SCROLL ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('nav').classList.toggle('scrolled',window.scrollY>60);
+});
+
+/* ── REVEAL ── */
+const revEls=document.querySelectorAll('.reveal');
+const revObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on');});
+},{threshold:.12});
+revEls.forEach(el=>revObs.observe(el));
+
+/* ── VIDEO FADE ── */
+function setupVideoFade(video){
+  if(!video)return;
+  const FADE=500,LEAD=0.55;
+  let rafId=null,fadingOut=false;
+  function fadeTo(target){
+    cancelAnimationFrame(rafId);
+    const start=performance.now(),from=parseFloat(video.style.opacity)||0;
+    function step(now){
+      const t=Math.min((now-start)/FADE,1);
+      video.style.opacity=from+(target-from)*t;
+      if(t<1)rafId=requestAnimationFrame(step);
+    }
+    rafId=requestAnimationFrame(step);
+  }
+  video.style.opacity=0;
+  video.addEventListener('loadeddata',()=>{video.style.opacity=0;video.play();fadeTo(1);});
+  video.addEventListener('timeupdate',()=>{
+    if(!fadingOut&&video.duration&&(video.duration-video.currentTime)<=LEAD&&(video.duration-video.currentTime)>0){
+      fadingOut=true;fadeTo(0);
+    }
+  });
+  video.addEventListener('ended',()=>{
+    video.style.opacity=0;
+    setTimeout(()=>{video.currentTime=0;video.play();fadingOut=false;fadeTo(1);},100);
+  });
+}
+setupVideoFade(document.getElementById('hero-video'));
+setupVideoFade(document.getElementById('work-video'));
+
+/* ── MODAL ── */
+const wrap=document.getElementById('modal-wrap');
+const modalClose=document.getElementById('modal-close');
+
+function openModal(idx){
+  const p=PROJECTS[idx];
+  document.getElementById('m-tag').textContent=p.tag;
+  document.getElementById('m-title').textContent=p.title;
+  document.getElementById('m-brand').textContent=p.brand;
+  document.getElementById('modal-hero').style.background=p.grad;
+  document.getElementById('m-desc').textContent=p.desc;
+  document.getElementById('m-challenge').textContent=p.challenge;
+  document.getElementById('m-approach').textContent=p.approach;
+  const pillsEl=document.getElementById('m-pills');
+  pillsEl.innerHTML=p.pills.map(t=>`<span class="modal-pill lg">${t}</span>`).join('');
+  wrap.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  wrap.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.querySelectorAll('.proj-item').forEach(item=>{
+  item.addEventListener('click',()=>openModal(+item.dataset.idx));
+});
+modalClose.addEventListener('click',closeModal);
+wrap.addEventListener('click',e=>{if(e.target===wrap)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+</script>
+</body>
+</html>
